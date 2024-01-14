@@ -1,8 +1,8 @@
-from flask import Flask, render_template,redirect,request
+from flask import Flask, render_template,redirect,request, flash, session
 from database import User, add_to_db, open_db
 
 app = Flask(__name__)
-
+app.secret_key = 'thisissupersecretkeyfornoone'
 
 @app.route('/')
 def index():
@@ -27,6 +27,10 @@ def register():
         cpassword = request.form.get('cpassword')
         print(username, email, password, cpassword)
         # logic
+        if len(username) == 0 or len(email) == 0 or len(password) == 0 or len(cpassword) == 0:
+            flash("All fields are required", 'danger')
+        user = User(username=username, email=email, password=password)
+        add_to_db(user)
     return render_template('register.html')
 
 if __name__ == '__main__':

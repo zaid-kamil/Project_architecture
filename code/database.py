@@ -1,5 +1,5 @@
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import engine
+from sqlalchemy import create_engine
 from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
 from sqlalchemy.orm import sessionmaker
@@ -22,7 +22,7 @@ class User(Base):
     
 # utility functions
 def open_db():
-    engine = engine.create_engine('sqlite:///project.db', echo=True)
+    engine = create_engine('sqlite:///project.db', echo=True)
     session =  sessionmaker(bind=engine)
     return session()
 
@@ -30,6 +30,7 @@ def add_to_db(object):
     db = open_db()
     db.add(object)
     db.commit()
+    db.close()
 
 if __name__ == "__main__":
     # create engine
@@ -41,5 +42,5 @@ if __name__ == "__main__":
     # port = 3306
     # engine = engine.create_engine(f'mysql+pymysql://{username}:{password}@{host}:{port}/{database_name}')
     # demo
-    engine = engine.create_engine('sqlite:///project.db', echo=True)
+    engine = create_engine('sqlite:///project.db', echo=True)
     Base.metadata.create_all(engine)
