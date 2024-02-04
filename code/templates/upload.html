@@ -1,0 +1,20 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-4 mx-auto card">
+            <h1>Upload file</h1>
+            <form method="post" enctype="multipart/form-data" class="card-body">
+                <div class="mb-3">
+                    <label for="file" class="form-label">Choose file</label>
+                    <input type="file" class="form-control" name="file" id="file" placeholder=""
+                        aria-describedby="fileHelpId" />
+                    <div id="fileHelpId" class="form-text">Help text</div>
+                </div>
+                <button class="btn btn-success">Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

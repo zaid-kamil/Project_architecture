@@ -1,6 +1,6 @@
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from datetime import datetime
 from sqlalchemy.orm import sessionmaker
 
@@ -17,6 +17,16 @@ class User(Base):
 
     def __str__(self):
         return self.username
+
+class File(Base):
+    __tablename__ = 'files'
+    id = Column(Integer, primary_key=True)
+    path = Column(String(255), nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    created_at = Column(DateTime, default=datetime.now)
+
+    def __str__(self):
+        return self.path
 
 # more classes for other tables
     
